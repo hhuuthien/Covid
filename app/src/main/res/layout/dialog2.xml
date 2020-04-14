@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp"
+    tools:ignore="HardcodedText, SpUsage">
+
+    <TextView
+        android:id="@+id/idialog_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/gg_medium"
+        android:gravity="center"
+        android:lineSpacingMultiplier="1.2"
+        android:padding="10dp"
+        android:text="Đọc tin tức này trên báo VnExpress?"
+        android:textColor="@android:color/black"
+        android:textSize="14dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/idialog_text"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <Button
+            android:id="@+id/idialog_btn_no"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_bg"
+            android:fontFamily="@font/gg_medium"
+            android:text="Huỷ bỏ"
+            android:textAllCaps="false"
+            android:textColor="@android:color/black"
+            android:textSize="14dp"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:id="@+id/idialog_btn_yes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_bg"
+            android:fontFamily="@font/gg_medium"
+            android:text="Đồng ý"
+            android:textAllCaps="false"
+            android:textColor="@android:color/black"
+            android:textSize="14dp"
+            tools:ignore="ButtonStyle" />
+    </LinearLayout>
+</RelativeLayout>

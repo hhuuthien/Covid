@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    tools:ignore="HardcodedText, SpUsage">
+
+    <TextView
+        android:id="@+id/inews_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="@font/gg_regular"
+        android:lineSpacingMultiplier="1.1"
+        android:text="@string/app_name"
+        android:textColor="@android:color/black"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/inews_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/inews_title"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:fontFamily="@font/gg_regular"
+        android:lineSpacingMultiplier="1.1"
+        android:text="@string/app_name"
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/inews_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/inews_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:drawableStart="@drawable/ic_time"
+        android:drawablePadding="5dp"
+        android:fontFamily="@font/gg_regular"
+        android:gravity="center_vertical"
+        android:lineSpacingMultiplier="1.1"
+        android:text="@string/app_name"
+        android:textColor="@android:color/black"
+        android:textSize="10dp" />
+</RelativeLayout>

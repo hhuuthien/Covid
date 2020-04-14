@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".DetailActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/de_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/Theme.MaterialComponents"
+        app:contentInsetStart="0dp"
+        app:popupTheme="@style/Theme.MaterialComponents">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/gg_medium"
+                android:text="Chi tiết các bệnh nhân"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18dp"
+                tools:ignore="HardcodedText,SpUsage" />
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/de_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/de_toolbar"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimaryLight"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        tools:ignore="HardcodedText, SpUsage">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/gg_regular"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="ID"
+            android:textColor="@android:color/black"
+            android:textSize="13dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/gg_regular"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="Thông tin"
+            android:textColor="@android:color/black"
+            android:textSize="13dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/gg_regular"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="Quốc tịch"
+            android:textColor="@android:color/black"
+            android:textSize="13dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/gg_regular"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="Địa điểm"
+            android:textColor="@android:color/black"
+            android:textSize="13dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/gg_regular"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="Tình trạng"
+            android:textColor="@android:color/black"
+            android:textSize="13dp" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/de_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/de_title"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/colorDarkLight"
+        android:scrollbars="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    <ProgressBar
+        android:id="@+id/de_load"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/de_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
+</RelativeLayout>
