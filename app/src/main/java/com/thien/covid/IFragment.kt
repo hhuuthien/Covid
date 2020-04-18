@@ -93,7 +93,12 @@ class IFragment : Fragment() {
                 layoutInflater.ip_answer.text = Html.fromHtml(myItem.q.Answer)
             }
 
-            AlertDialog.Builder(context).setView(layoutInflater).show()
+            val builder = AlertDialog.Builder(context)
+                .setView(layoutInflater)
+                .setCancelable(true)
+            val dialog = builder.create()
+            dialog?.window?.attributes?.windowAnimations = R.style.DialogAnimation
+            dialog.show()
         }
 
         val a = view.findViewById<CardView>(R.id.ilay11)

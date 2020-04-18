@@ -52,10 +52,13 @@ class NFragment : Fragment() {
         adapter.setOnItemClickListener { item, _ ->
             val lay = layoutInflater.inflate(R.layout.dialog2, null)
 
-            val dialog = AlertDialog.Builder(context)
+            val dialogBuilder = AlertDialog.Builder(context)
                 .setView(lay)
                 .setCancelable(true)
-                .show()
+
+            val dialog = dialogBuilder.create()
+            dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
+            dialog.show()
 
             lay.idialog_btn_no.setOnClickListener {
                 dialog.dismiss()

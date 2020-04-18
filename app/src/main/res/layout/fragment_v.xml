@@ -132,7 +132,7 @@
                 android:layout_below="@id/lay2"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="2dp">
+                android:layout_marginBottom="8dp">
 
                 <TextView
                     android:id="@+id/num_1a"
@@ -173,60 +173,6 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/gg_regular"
                     android:text="%"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/black"
-                    android:textSize="12dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lay3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/lay4"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp">
-
-                <TextView
-                    android:id="@+id/num_1m"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/gg_regular"
-                    android:text="0"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/holo_red_light"
-                    android:textSize="12dp" />
-
-                <TextView
-                    android:id="@+id/num_2m"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/gg_regular"
-                    android:text="0"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/holo_green_dark"
-                    android:textSize="12dp" />
-
-                <TextView
-                    android:id="@+id/num_4m"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/gg_regular"
-                    android:text="0"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/holo_blue_dark"
-                    android:textSize="12dp" />
-
-                <TextView
-                    android:id="@+id/num_3m"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/gg_regular"
-                    android:text="0"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="12dp" />

@@ -52,12 +52,6 @@ class VFragment : Fragment() {
                 val num3 = trackerTotalByDay.deaths
                 val num4 = num1 - num2 - num3
 
-                val size = result.data.data[0].tracker_by_day.size
-                val trackerDay = result.data.data[0].tracker_by_day[size - 1]
-                val num1m = trackerDay.cases
-                val num2m = trackerDay.recovered
-                val num3m = trackerDay.deaths
-
                 val listProvince: ArrayList<CaseProvince> = result.data.data[0].tracker_by_province
 
                 activity?.runOnUiThread {
@@ -65,11 +59,6 @@ class VFragment : Fragment() {
                     num_2.text = num2.toString()
                     num_3.text = num3.toString()
                     num_4.text = num4.toString()
-
-                    num_1m.text = "+$num1m"
-                    num_2m.text = "+$num2m"
-                    num_3m.text = "+$num3m"
-                    num_4m.text = "-$num2m"
 
                     val percent2 = BigDecimal((num2.toDouble() * 100 / num1)).setScale(
                         1,
@@ -113,15 +102,8 @@ class TrackerTotalByDay(
     val recovered: Int
 )
 
-class TrackerByDay(
-    val cases: Int,
-    val deaths: Int,
-    val recovered: Int
-)
-
 class DataCovidClass(
     val tracker_total_by_day: TrackerTotalByDay,
-    val tracker_by_day: ArrayList<TrackerByDay>,
     val tracker_by_province: ArrayList<CaseProvince>
 )
 

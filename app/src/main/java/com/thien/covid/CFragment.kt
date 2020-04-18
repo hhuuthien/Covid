@@ -45,10 +45,13 @@ class CFragment : Fragment() {
             val lay = layoutInflater.inflate(R.layout.dialog2, null)
             lay.idialog_text.text = "Gọi đến ${myItem.hos.name}?"
 
-            val dialog = AlertDialog.Builder(context)
+            val dialogBuilder = AlertDialog.Builder(context)
                 .setView(lay)
                 .setCancelable(true)
-                .show()
+
+            val dialog = dialogBuilder.create()
+            dialog?.window?.attributes?.windowAnimations = R.style.DialogAnimation
+            dialog.show()
 
             lay.idialog_btn_no.setOnClickListener {
                 dialog.dismiss()
