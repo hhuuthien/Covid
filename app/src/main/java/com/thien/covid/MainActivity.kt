@@ -1,5 +1,6 @@
 package com.thien.covid
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -18,5 +19,9 @@ class MainActivity : AppCompatActivity() {
         adapter.add(CFragment(), "Hỗ trợ")
         main_pager.adapter = adapter
         main_tab.setupWithViewPager(main_pager)
+
+        gogo.setOnClickListener {
+            startActivity(Intent(this, StartActivity::class.java))
+        }
     }
 }
