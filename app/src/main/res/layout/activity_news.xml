@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    android:background="@android:color/white"
+    tools:context=".NewsActivity"
+    tools:ignore="ContentDescription, SpUsage, HardcodedText">
+
+    <ImageView
+        android:id="@+id/news_img"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/virus3" />
+
+    <TextView
+        android:id="@+id/news_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/news_img"
+        android:layout_alignBottom="@id/news_img"
+        android:fontFamily="@font/gg_bold"
+        android:gravity="center"
+        android:lineSpacingMultiplier="1.1"
+        android:text="Covid-19\nTin tức"
+        android:textColor="@android:color/white"
+        android:textSize="22dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/news_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/news_img"
+        android:layout_margin="10dp"
+        android:scrollbars="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    <ProgressBar
+        android:id="@+id/news_loading"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/news_img"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
+</RelativeLayout>

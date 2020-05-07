@@ -1,79 +1,54 @@
 package com.thien.covid
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
-import android.view.ViewGroup
+import android.view.Window
+import android.view.WindowManager
+import android.view.animation.AnimationUtils
 import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
-import kotlinx.android.synthetic.main.dialog2.view.*
-import kotlinx.android.synthetic.main.fragment_n.*
-import kotlinx.android.synthetic.main.item4.view.*
+import kotlinx.android.synthetic.main.activity_news.*
+import kotlinx.android.synthetic.main.item3.view.*
 import org.jsoup.Jsoup
 
-
-class NFragment : Fragment() {
+class NewsActivity : AppCompatActivity() {
 
     private val adapter = GroupAdapter<ViewHolder>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_n, container, false)
-        init(view)
-        return view
-    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        this.window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
+        setContentView(R.layout.activity_news)
 
-    private fun init(view: View) {
+        val a = AnimationUtils.loadAnimation(this, R.anim.bounce_in)
+        news_title.startAnimation(a)
+
         try {
             GetNews().execute()
         } catch (e: Exception) {
-            Toast.makeText(context, "Đã xảy ra lỗi", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Đã xảy ra lỗi", Toast.LENGTH_LONG).show()
+            finish()
         }
 
-        view.findViewById<RecyclerView>(R.id.n_list).addItemDecoration(
-            DividerItemDecoration(
-                context,
-                DividerItemDecoration.VERTICAL
-            )
-        )
-
         adapter.setOnItemClickListener { item, _ ->
-            val lay = layoutInflater.inflate(R.layout.dialog2, null)
-
-            val dialogBuilder = AlertDialog.Builder(context)
-                .setView(lay)
-                .setCancelable(true)
-
-            val dialog = dialogBuilder.create()
-            dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
-            dialog.show()
-
-            lay.idialog_btn_no.setOnClickListener {
-                dialog.dismiss()
-            }
-
-            lay.idialog_btn_yes.setOnClickListener {
-                dialog.dismiss()
-                try {
-                    val myItem = item as ItemNews
-                    val uri = Uri.parse(myItem.news.link)
-                    val intent = Intent(Intent.ACTION_VIEW, uri)
-                    startActivity(intent)
-                } catch (e: Exception) {
-                    Toast.makeText(context, "Đã xảy ra lỗi", Toast.LENGTH_LONG).show()
-                }
+            try {
+                val myItem = item as ItemNews
+                val uri = Uri.parse(myItem.news.link)
+                val intent = Intent(Intent.ACTION_VIEW, uri)
+                startActivity(intent)
+            } catch (e: Exception) {
+                Toast.makeText(this, "Đã xảy ra lỗi", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -117,7 +92,8 @@ class NFragment : Fragment() {
             for (e in result!!) {
                 adapter.add(ItemNews(e))
             }
-            n_list.adapter = adapter
+            news_list.adapter = adapter
+            news_loading.visibility = GONE
             super.onPostExecute(result)
         }
     }
@@ -132,18 +108,18 @@ class News(
 
 class ItemNews(val news: News) : Item<ViewHolder>() {
     override fun getLayout(): Int {
-        return R.layout.item4
+        return R.layout.item3
     }
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.itemView.inews_title.text = news.title
         if (news.content.isEmpty() || news.content.isBlank()) {
-            viewHolder.itemView.inews_content.visibility = GONE
+            viewHolder.itemView.inews_content.visibility = View.GONE
         } else {
             viewHolder.itemView.inews_content.text = news.content
         }
         if (news.time.isEmpty() || news.time.isBlank()) {
-            viewHolder.itemView.inews_info.visibility = GONE
+            viewHolder.itemView.inews_info.visibility = View.GONE
         } else {
             viewHolder.itemView.inews_info.text = news.time
         }

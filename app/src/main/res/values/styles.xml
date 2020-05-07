@@ -1,14 +1,9 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-    </style>
-
-    <style name="MyTextAppearance" parent="TextAppearance.AppCompat">
-        <item name="fontFamily">@font/gg_medium</item>
-        <item name="android:textSize" tools:ignore="SpUsage">12dp</item>
     </style>
 
     <style name="DialogAnimation">

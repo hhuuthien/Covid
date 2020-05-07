@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.thien.covid">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,10 +11,14 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/virus"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".StartActivity"></activity>
-        <activity android:name=".DetailActivity" />
-        <activity android:name=".MainActivity">
+        android:theme="@style/AppTheme"
+        tools:ignore="AllowBackup">
+        <activity android:name=".InfoActivity" />
+        <activity android:name=".NewsActivity" />
+        <activity android:name=".WorldActivity" />
+        <activity android:name=".AdminActivity" />
+        <activity android:name=".VietNamActivity" />
+        <activity android:name=".StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

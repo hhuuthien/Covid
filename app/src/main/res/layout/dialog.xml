@@ -1,38 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:padding="20dp">
 
-    <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/phone"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="12dp"
-        tools:ignore="HardcodedText, SpUsage">
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="@font/gg_regular"
+        android:gravity="center_horizontal"
+        android:text="Đường dây nóng"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16dp"
+        tools:ignore="HardcodedText,SpUsage" />
 
-        <TextView
-            android:id="@+id/ip_question"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/gg_medium"
-            android:gravity="center_vertical"
-            android:lineSpacingMultiplier="1.2"
-            android:padding="10dp"
-            android:text="@string/app_name"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16dp" />
+    <TextView
+        android:id="@+id/phone1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/phone"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/gg_bold"
+        android:padding="6dp"
+        android:text="19009095"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="22dp"
+        tools:ignore="HardcodedText,SpUsage" />
 
-        <TextView
-            android:id="@+id/ip_answer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ip_question"
-            android:layout_marginTop="2dp"
-            android:fontFamily="@font/gg_regular"
-            android:gravity="center_vertical"
-            android:lineSpacingMultiplier="1.2"
-            android:padding="10dp"
-            android:text="@string/app_name"
-            android:textColor="@android:color/black"
-            android:textSize="14dp" />
-    </RelativeLayout>
-</ScrollView>
+    <TextView
+        android:id="@+id/phone2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/phone1"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/gg_bold"
+        android:padding="6dp"
+        android:text="19003228"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="22dp"
+        tools:ignore="HardcodedText,SpUsage" />
+</RelativeLayout>

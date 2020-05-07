@@ -1,16 +1,24 @@
 package com.thien.covid
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
+import android.view.animation.AnimationUtils
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_start.*
+import kotlinx.android.synthetic.main.dialog.view.*
 import okhttp3.*
 import java.io.IOException
+import java.io.Serializable
 
 class StartActivity : AppCompatActivity() {
+
+    var textToTransfer = ArrayList<W>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +29,9 @@ class StartActivity : AppCompatActivity() {
         )
         setContentView(R.layout.activity_start)
 
+        val a = AnimationUtils.loadAnimation(this, R.anim.bounce_in)
+        s_title.startAnimation(a)
+
         val url = "https://vnexpress.net/microservice/corona"
         val request = Request.Builder().url(url).build()
         OkHttpClient().newCall(request).enqueue(object : Callback {
@@ -29,7 +40,7 @@ class StartActivity : AppCompatActivity() {
 
             @SuppressLint("SetTextI18n")
             override fun onResponse(call: Call, response: Response) {
-                val body = response.body?.string()
+                val body = response.body?.string()?.replace("[],", "")
                 val gSon = GsonBuilder().create()
                 val result = gSon.fromJson(body, SData3::class.java)
 
@@ -44,22 +55,68 @@ class StartActivity : AppCompatActivity() {
                     val s3 = timetg.substring(5, 7)
                     val s4 = timetg.substring(0, 4)
                     s_texttgtime.text =
-                        "Cập nhật lần cuối: $s1 ngày $s2-$s3-$s4.\nNguồn: Worldometers."
+                        "Cập nhật: $s1 $s2-$s3-$s4. Nguồn: Worldometers"
 
                     val vn = result.gdata.total
                     val vnArr = vn.split("\r\n")
                     val vnArrLast = vnArr[vnArr.size - 1]
                     val arr = vnArrLast.split(",")
-                    val day = arr[0].replace("/", "-")
-                    val time = arr[1]
                     num_1.text = arr[2]
                     num_2.text = arr[3]
                     num_3.text = arr[6]
-                    s_textvntime.text =
-                        "Cập nhật lần cuối: $time ngày $day-2020.\nNguồn: Bộ Y tế."
+                    s_textvntime.text = "Nguồn: Bộ Y tế"
+
+                    textToTransfer = result.data.data[0].table_left
                 }
             }
         })
+
+        s_textvnmore.setOnClickListener {
+            startActivity(Intent(this, VietNamActivity::class.java))
+        }
+
+        s_texttgmore.setOnClickListener {
+            startActivity(
+                Intent(this, WorldActivity::class.java)
+                    .putExtra("DATADATA", textToTransfer)
+            )
+        }
+
+        num_2.setOnClickListener {
+            startActivity(Intent(this, AdminActivity::class.java))
+        }
+
+        box1.setOnClickListener {
+            startActivity(Intent(this, InfoActivity::class.java))
+        }
+
+        box2.setOnClickListener {
+            startActivity(Intent(this, NewsActivity::class.java))
+        }
+
+        box3.setOnClickListener {
+            val lay = layoutInflater.inflate(R.layout.dialog, null)
+
+            val alertDialogBuilder = AlertDialog.Builder(this)
+            alertDialogBuilder.setView(lay)
+            alertDialogBuilder.setCancelable(true)
+
+            val dialog = alertDialogBuilder.create()
+            dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
+            dialog.show()
+
+            lay.phone1.setOnClickListener {
+                val uri = Uri.parse("tel:19009095")
+                val intent = Intent(Intent.ACTION_DIAL, uri)
+                startActivity(intent)
+            }
+
+            lay.phone2.setOnClickListener {
+                val uri = Uri.parse("tel:19003228")
+                val intent = Intent(Intent.ACTION_DIAL, uri)
+                startActivity(intent)
+            }
+        }
     }
 }
 
@@ -74,7 +131,8 @@ class SVNData(
 )
 
 class SData1(
-    val table_world: SWorldData
+    val table_world: SWorldData,
+    val table_left: ArrayList<W>
 )
 
 class SData2(
@@ -86,3 +144,10 @@ class SData3(
     val data: SData2,
     val gdata: SVNData
 )
+
+class W(
+    val cases: String,
+    var country_vn: String,
+    val recovered: String,
+    val deaths: String
+) : Serializable
