@@ -13,18 +13,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".InfoActivity" />
-        <activity android:name=".NewsActivity" />
-        <activity android:name=".WorldActivity" />
-        <activity android:name=".AdminActivity" />
-        <activity android:name=".VietNamActivity" />
-        <activity android:name=".StartActivity">
+        <activity android:name=".LoadActivity" />
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".InfoActivity" />
+        <activity android:name=".NewsActivity" />
+        <activity android:name=".WorldActivity" />
+        <activity android:name=".AdminActivity" />
+        <activity android:name=".VietNamActivity" />
+        <activity android:name=".StartActivity" />
     </application>
 
 </manifest>

@@ -6,8 +6,6 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.view.View
 import android.view.View.GONE
-import android.view.Window
-import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -24,11 +22,6 @@ class NewsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestWindowFeature(Window.FEATURE_NO_TITLE)
-        this.window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
         setContentView(R.layout.activity_news)
 
         val a = AnimationUtils.loadAnimation(this, R.anim.bounce_in)

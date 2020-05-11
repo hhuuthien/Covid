@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:background="@android:color/white">
 
-    <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
@@ -52,9 +53,10 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/vn_list"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="200dp"
             android:layout_below="@id/vn_text1"
             android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="8dp"
             android:scrollbars="vertical" />
@@ -75,14 +77,58 @@
             android:textColor="#0b2239"
             android:textSize="16dp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/vn_list2"
+        <RelativeLayout
+            android:id="@+id/vn_list2_all"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:layout_below="@id/vn_text2"
-            android:layout_marginStart="18dp"
-            android:layout_marginEnd="18dp"
-            android:layout_marginBottom="8dp"
-            android:scrollbars="vertical" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/vn_text2">
+
+            <RadioGroup
+                android:id="@+id/rad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="26dp"
+                android:layout_marginBottom="4dp"
+                android:checkedButton="@id/rad1"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rad1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/gg_regular"
+                    android:text="Tất cả" />
+
+                <RadioButton
+                    android:id="@+id/rad2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/gg_regular"
+                    android:text="Đang điều trị" />
+
+                <RadioButton
+                    android:id="@+id/rad3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/gg_regular"
+                    android:text="Đã khỏi bệnh" />
+            </RadioGroup>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/vn_list2"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:layout_below="@id/rad"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="8dp"
+                android:scrollbars="vertical" />
+        </RelativeLayout>
     </RelativeLayout>
 </ScrollView>

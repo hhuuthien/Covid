@@ -6,8 +6,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
-import android.view.Window
-import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -27,11 +25,6 @@ class InfoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestWindowFeature(Window.FEATURE_NO_TITLE)
-        this.window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
         setContentView(R.layout.activity_info)
 
         val a = AnimationUtils.loadAnimation(this, R.anim.bounce_in)
@@ -71,6 +64,20 @@ class InfoActivity : AppCompatActivity() {
             val webIntent = Intent(
                 Intent.ACTION_VIEW,
                 Uri.parse("http://www.youtube.com/watch?v=k0VMMVkbvNo")
+            )
+            try {
+                startActivity(appIntent)
+            } catch (ex: ActivityNotFoundException) {
+                startActivity(webIntent)
+            }
+        }
+
+        info_box4.setOnClickListener {
+            val appIntent =
+                Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:LcSbdjWo0rc"))
+            val webIntent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("http://www.youtube.com/watch?v=LcSbdjWo0rc")
             )
             try {
                 startActivity(appIntent)

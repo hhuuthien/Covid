@@ -3,8 +3,6 @@ package com.thien.covid
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +11,7 @@ import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_world.*
 import kotlinx.android.synthetic.main.item.view.*
+import java.lang.Integer.parseInt
 import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -24,11 +23,6 @@ class WorldActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestWindowFeature(Window.FEATURE_NO_TITLE)
-        this.window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
         setContentView(R.layout.activity_world)
 
         val a = AnimationUtils.loadAnimation(this, R.anim.bounce_in)
@@ -159,19 +153,40 @@ class ItemW(private val w: W) : Item<ViewHolder>() {
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.itemView.ip_name.text = w.country_vn
 
+        try {
+            if (isNumeric(w.cases)) {
+                viewHolder.itemView.ip_case.text =
+                    NumberFormat.getNumberInstance(Locale.US).format(w.cases.toInt())
+            } else {
+                viewHolder.itemView.ip_case.text = w.cases
+            }
+            if (isNumeric(w.recovered)) {
+                viewHolder.itemView.ip_recover.text =
+                    NumberFormat.getNumberInstance(Locale.US).format(w.recovered.toInt())
+            } else {
+                viewHolder.itemView.ip_recover.text = w.recovered
+            }
+            if (isNumeric(w.deaths)) {
+                viewHolder.itemView.ip_death.text =
+                    NumberFormat.getNumberInstance(Locale.US).format(w.deaths.toInt())
+            } else {
+                viewHolder.itemView.ip_death.text = w.deaths
+            }
+        } catch (e: Exception) {
+            Log.d("error", e.toString())
+        }
+
         if (w.cases == "") viewHolder.itemView.ip_case.text = "0"
         if (w.recovered == "") viewHolder.itemView.ip_recover.text = "0"
         if (w.deaths == "") viewHolder.itemView.ip_death.text = "0"
+    }
 
-        try {
-            viewHolder.itemView.ip_case.text =
-                NumberFormat.getNumberInstance(Locale.US).format(w.cases.toInt())
-            viewHolder.itemView.ip_recover.text =
-                NumberFormat.getNumberInstance(Locale.US).format(w.recovered.toInt())
-            viewHolder.itemView.ip_death.text =
-                NumberFormat.getNumberInstance(Locale.US).format(w.deaths.toInt())
+    private fun isNumeric(s: String): Boolean {
+        return try {
+            val num = parseInt(s)
+            true
         } catch (e: Exception) {
-            Log.d("error", e.toString())
+            false
         }
     }
 }

@@ -5,8 +5,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.view.Window
-import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +15,6 @@ import com.google.firebase.database.ValueEventListener
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
-import kotlinx.android.synthetic.main.activity_start.*
 import kotlinx.android.synthetic.main.activity_viet_nam.*
 import kotlinx.android.synthetic.main.item.view.*
 import kotlinx.android.synthetic.main.item1.view.*
@@ -26,16 +23,14 @@ class VietNamActivity : AppCompatActivity() {
 
     val adapter = GroupAdapter<ViewHolder>()
     val adapter2 = GroupAdapter<ViewHolder>()
-    var isList1ON = false
+    val listA = ArrayList<Patient>()
+    val listB = ArrayList<Patient>()
+    val listC = ArrayList<Patient>()
+    var isList1ON = true
     var isList2ON = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestWindowFeature(Window.FEATURE_NO_TITLE)
-        this.window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
         setContentView(R.layout.activity_viet_nam)
 
         val a = AnimationUtils.loadAnimation(this, R.anim.bounce_in)
@@ -45,6 +40,28 @@ class VietNamActivity : AppCompatActivity() {
         vn_list.layoutManager = layoutManager
         val layoutManager2 = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         vn_list2.layoutManager = layoutManager2
+
+        rad.setOnCheckedChangeListener { _, _ ->
+            if (rad1.isChecked) {
+                adapter2.clear()
+                for (m in listA) {
+                    adapter2.add(ItemPatient(m))
+                }
+                adapter2.notifyDataSetChanged()
+            } else if (rad2.isChecked) {
+                adapter2.clear()
+                for (m in listC) {
+                    adapter2.add(ItemPatient(m))
+                }
+                adapter2.notifyDataSetChanged()
+            } else if (rad3.isChecked) {
+                adapter2.clear()
+                for (m in listB) {
+                    adapter2.add(ItemPatient(m))
+                }
+                adapter2.notifyDataSetChanged()
+            }
+        }
 
         if (isList1ON) {
             vn_list.visibility = VISIBLE
@@ -65,7 +82,7 @@ class VietNamActivity : AppCompatActivity() {
         }
 
         if (isList2ON) {
-            vn_list2.visibility = VISIBLE
+            vn_list2_all.visibility = VISIBLE
             vn_text2.setCompoundDrawablesRelativeWithIntrinsicBounds(
                 0,
                 0,
@@ -73,7 +90,7 @@ class VietNamActivity : AppCompatActivity() {
                 0
             )
         } else {
-            vn_list2.visibility = GONE
+            vn_list2_all.visibility = GONE
             vn_text2.setCompoundDrawablesRelativeWithIntrinsicBounds(
                 0,
                 0,
@@ -106,7 +123,7 @@ class VietNamActivity : AppCompatActivity() {
 
         vn_text2.setOnClickListener {
             if (!isList2ON) {
-                vn_list2.visibility = VISIBLE
+                vn_list2_all.visibility = VISIBLE
                 isList2ON = true
                 vn_text2.setCompoundDrawablesRelativeWithIntrinsicBounds(
                     0,
@@ -115,7 +132,7 @@ class VietNamActivity : AppCompatActivity() {
                     0
                 )
             } else {
-                vn_list2.visibility = GONE
+                vn_list2_all.visibility = GONE
                 isList2ON = false
                 vn_text2.setCompoundDrawablesRelativeWithIntrinsicBounds(
                     0,
@@ -158,8 +175,17 @@ class VietNamActivity : AppCompatActivity() {
                     val patSex = m.child("sex").value.toString()
                     val patStatus = m.child("status").value.toString()
                     val pat = Patient(patID, patAge, patSex, patPlace, patStatus, patNationality)
-                    adapter2.add(ItemPatient(pat))
+                    listA.add(pat)
+                    if (pat.status.contains("Khỏi")) {
+                        listB.add(pat)
+                    } else {
+                        listC.add(pat)
+                    }
                 }
+                for (m in listA) {
+                    adapter2.add(ItemPatient(m))
+                }
+                adapter2.notifyDataSetChanged()
                 vn_list2.adapter = adapter2
             }
         })
@@ -203,13 +229,13 @@ class ItemPatient(private val p: Patient) : Item<ViewHolder>() {
     @SuppressLint("SetTextI18n")
     override fun bind(viewHolder: ViewHolder, position: Int) {
         if (p.status.contains("Khỏi")) {
-            viewHolder.itemView.ipa_text.text = "${p.id}: Đã khỏi bệnh".replace("BN", "Bệnh nhân ")
+            viewHolder.itemView.ipa_text.text = "${p.id}: Đã khỏi bệnh".replace("BN", "BN ")
             viewHolder.itemView.ipa_text.setTextColor(Color.parseColor("#4CAF50"))
         } else {
-            viewHolder.itemView.ipa_text.text = "${p.id}: Đang điều trị".replace("BN", "Bệnh nhân ")
+            viewHolder.itemView.ipa_text.text = "${p.id}: Đang điều trị".replace("BN", "BN ")
             viewHolder.itemView.ipa_text.setTextColor(Color.parseColor("#ffff4444"))
         }
         viewHolder.itemView.ipa_text2.text =
-            "${p.sex}, ${p.age} tuổi, quốc tịch ${p.nationality}, nhiễm bệnh tại ${p.place}"
+            "${p.sex}, ${p.age} tuổi, quốc tịch ${p.nationality}, điều trị ở ${p.place}"
     }
 }

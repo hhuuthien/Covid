@@ -14,7 +14,7 @@
         android:layout_marginBottom="12dp"
         android:fontFamily="@font/gg_regular"
         android:gravity="center_horizontal"
-        android:text="Đường dây nóng"
+        android:text="Đường dây nóng Bộ Y tế"
         android:textColor="@color/colorPrimary"
         android:textSize="16dp"
         tools:ignore="HardcodedText,SpUsage" />
