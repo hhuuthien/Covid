@@ -12,22 +12,16 @@
     <ImageView
         android:id="@+id/news_img"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/virus3" />
+        android:layout_height="90dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/virus2" />
 
     <TextView
         android:id="@+id/news_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/title_text"
         android:layout_alignTop="@id/news_img"
         android:layout_alignBottom="@id/news_img"
-        android:fontFamily="@font/gg_bold"
-        android:gravity="center"
-        android:lineSpacingMultiplier="1.1"
-        android:text="Covid-19\nTin tức"
-        android:textColor="@android:color/white"
-        android:textSize="22dp" />
+        android:text="Tin tức" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/news_list"

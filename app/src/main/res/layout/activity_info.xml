@@ -12,22 +12,16 @@
     <ImageView
         android:id="@+id/info_img"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/virus3" />
+        android:layout_height="90dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/virus2" />
 
     <TextView
         android:id="@+id/info_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/title_text"
         android:layout_alignTop="@id/info_img"
         android:layout_alignBottom="@id/info_img"
-        android:fontFamily="@font/gg_bold"
-        android:gravity="center"
-        android:lineSpacingMultiplier="1.1"
-        android:text="Covid-19\nThông tin"
-        android:textColor="@android:color/white"
-        android:textSize="22dp" />
+        android:text="Thông tin" />
 
     <TextView
         android:id="@+id/info_text1"

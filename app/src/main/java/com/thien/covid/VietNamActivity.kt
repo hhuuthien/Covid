@@ -23,11 +23,8 @@ class VietNamActivity : AppCompatActivity() {
 
     val adapter = GroupAdapter<ViewHolder>()
     val adapter2 = GroupAdapter<ViewHolder>()
-    val listA = ArrayList<Patient>()
-    val listB = ArrayList<Patient>()
-    val listC = ArrayList<Patient>()
-    var isList1ON = true
-    var isList2ON = true
+    var isList1ON = false
+    var isList2ON = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,28 +37,6 @@ class VietNamActivity : AppCompatActivity() {
         vn_list.layoutManager = layoutManager
         val layoutManager2 = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         vn_list2.layoutManager = layoutManager2
-
-        rad.setOnCheckedChangeListener { _, _ ->
-            if (rad1.isChecked) {
-                adapter2.clear()
-                for (m in listA) {
-                    adapter2.add(ItemPatient(m))
-                }
-                adapter2.notifyDataSetChanged()
-            } else if (rad2.isChecked) {
-                adapter2.clear()
-                for (m in listC) {
-                    adapter2.add(ItemPatient(m))
-                }
-                adapter2.notifyDataSetChanged()
-            } else if (rad3.isChecked) {
-                adapter2.clear()
-                for (m in listB) {
-                    adapter2.add(ItemPatient(m))
-                }
-                adapter2.notifyDataSetChanged()
-            }
-        }
 
         if (isList1ON) {
             vn_list.visibility = VISIBLE
@@ -82,7 +57,7 @@ class VietNamActivity : AppCompatActivity() {
         }
 
         if (isList2ON) {
-            vn_list2_all.visibility = VISIBLE
+            vn_list2.visibility = VISIBLE
             vn_text2.setCompoundDrawablesRelativeWithIntrinsicBounds(
                 0,
                 0,
@@ -90,7 +65,7 @@ class VietNamActivity : AppCompatActivity() {
                 0
             )
         } else {
-            vn_list2_all.visibility = GONE
+            vn_list2.visibility = GONE
             vn_text2.setCompoundDrawablesRelativeWithIntrinsicBounds(
                 0,
                 0,
@@ -123,7 +98,7 @@ class VietNamActivity : AppCompatActivity() {
 
         vn_text2.setOnClickListener {
             if (!isList2ON) {
-                vn_list2_all.visibility = VISIBLE
+                vn_list2.visibility = VISIBLE
                 isList2ON = true
                 vn_text2.setCompoundDrawablesRelativeWithIntrinsicBounds(
                     0,
@@ -132,7 +107,7 @@ class VietNamActivity : AppCompatActivity() {
                     0
                 )
             } else {
-                vn_list2_all.visibility = GONE
+                vn_list2.visibility = GONE
                 isList2ON = false
                 vn_text2.setCompoundDrawablesRelativeWithIntrinsicBounds(
                     0,
@@ -175,15 +150,7 @@ class VietNamActivity : AppCompatActivity() {
                     val patSex = m.child("sex").value.toString()
                     val patStatus = m.child("status").value.toString()
                     val pat = Patient(patID, patAge, patSex, patPlace, patStatus, patNationality)
-                    listA.add(pat)
-                    if (pat.status.contains("Khỏi")) {
-                        listB.add(pat)
-                    } else {
-                        listC.add(pat)
-                    }
-                }
-                for (m in listA) {
-                    adapter2.add(ItemPatient(m))
+                    adapter2.add(ItemPatient(pat))
                 }
                 adapter2.notifyDataSetChanged()
                 vn_list2.adapter = adapter2

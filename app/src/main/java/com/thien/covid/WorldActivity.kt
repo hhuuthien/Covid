@@ -11,6 +11,7 @@ import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_world.*
 import kotlinx.android.synthetic.main.item.view.*
+import kotlinx.android.synthetic.main.item5.view.*
 import java.lang.Integer.parseInt
 import java.text.NumberFormat
 import java.util.*
@@ -28,7 +29,7 @@ class WorldActivity : AppCompatActivity() {
         val a = AnimationUtils.loadAnimation(this, R.anim.bounce_in)
         w_title.startAnimation(a)
 
-        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         w_list.layoutManager = layoutManager
         val layoutManager2 = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         w_list2.layoutManager = layoutManager2
@@ -133,7 +134,7 @@ class WorldActivity : AppCompatActivity() {
         val adapter = GroupAdapter<ViewHolder>()
         for (m in data1) {
             if (m.country_vn == "Oceania") m.country_vn = "Châu Úc"
-            adapter.add(ItemW(m))
+            adapter.add(ItemContinent(m))
         }
         w_list.adapter = adapter
 
@@ -187,6 +188,27 @@ class ItemW(private val w: W) : Item<ViewHolder>() {
             true
         } catch (e: Exception) {
             false
+        }
+    }
+}
+
+class ItemContinent(private val w: W) : Item<ViewHolder>() {
+    override fun getLayout(): Int {
+        return R.layout.item5
+    }
+
+    override fun bind(viewHolder: ViewHolder, position: Int) {
+        viewHolder.itemView.con_name.text = w.country_vn
+
+        try {
+            viewHolder.itemView.con_case.text =
+                NumberFormat.getNumberInstance(Locale.US).format(w.cases.toInt())
+            viewHolder.itemView.con_recover.text =
+                NumberFormat.getNumberInstance(Locale.US).format(w.recovered.toInt())
+            viewHolder.itemView.con_death.text =
+                NumberFormat.getNumberInstance(Locale.US).format(w.deaths.toInt())
+        } catch (e: Exception) {
+            Log.d("error", e.toString())
         }
     }
 }
