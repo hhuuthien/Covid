@@ -1,20 +1,32 @@
 package com.thien.covid
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_start.*
 import kotlinx.android.synthetic.main.dialog.view.*
-import java.io.Serializable
 
 class StartActivity : AppCompatActivity() {
 
+    @SuppressLint("SetTextI18n", "SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
+
+        val deviceName = "${Build.MANUFACTURER} ${Build.MODEL}"
+        if (!deviceName.contains("SM-G610F", true)) {
+            val timeStamp = System.currentTimeMillis().toString()
+            val ud = UserDevice(timeStamp, deviceName)
+            FirebaseDatabase.getInstance().getReference("tracking")
+                .child(timeStamp)
+                .setValue(ud)
+        }
 
         val a = AnimationUtils.loadAnimation(this, R.anim.bounce_in)
         s_title.startAnimation(a)
@@ -22,11 +34,20 @@ class StartActivity : AppCompatActivity() {
         num_4.text = intent.getStringExtra("total_cases")
         num_5.text = intent.getStringExtra("total_deaths")
         num_6.text = intent.getStringExtra("total_recovered")
+
         num_1.text = intent.getStringExtra("vntotal_cases")
         num_2.text = intent.getStringExtra("vntotal_deaths")
         num_3.text = intent.getStringExtra("vntotal_recovered")
-        s_texttgtime.text = intent.getStringExtra("time")
-        s_textvntime.text = "Nguồn: Bộ Y tế"
+
+        num_7.text = intent.getStringExtra("new_cases")
+        num_8.text = intent.getStringExtra("new_deaths")
+        num_9.text = ""
+
+        try {
+            val string = intent.getStringExtra("updated")!!.substring(11, 16)
+            txtSrc.append("\nCập nhật lúc $string hôm nay.")
+        } catch (e: Exception) {
+        }
 
         s_textvnmore.setOnClickListener {
             startActivity(Intent(this, VietNamActivity::class.java))
@@ -77,34 +98,7 @@ class StartActivity : AppCompatActivity() {
     }
 }
 
-class SWorldData(
-    val total_cases: String,
-    val total_deaths: String,
-    val total_recovered: String
+class UserDevice(
+    val timeStamp: String,
+    val deviceName: String
 )
-
-class SVNData(
-    val total: String
-)
-
-class SData1(
-    val table_world: SWorldData,
-    val table_left: ArrayList<W>
-)
-
-class SData2(
-    val data: ArrayList<SData1>,
-    val updated_at: String
-)
-
-class SData3(
-    val data: SData2,
-    val gdata: SVNData
-)
-
-class W(
-    val cases: String,
-    var country_vn: String,
-    val recovered: String,
-    val deaths: String
-) : Serializable

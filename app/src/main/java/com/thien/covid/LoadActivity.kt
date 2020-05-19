@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.GsonBuilder
 import okhttp3.*
 import java.io.IOException
+import java.io.Serializable
+import java.util.*
 
 class LoadActivity : AppCompatActivity() {
 
@@ -39,12 +41,10 @@ class LoadActivity : AppCompatActivity() {
                     intent.putExtra("total_cases", w.total_cases)
                     intent.putExtra("total_deaths", w.total_deaths)
                     intent.putExtra("total_recovered", w.total_recovered)
-                    val timetg = result.data.updated_at
-                    val s1 = timetg.substring(11, 19)
-                    val s2 = timetg.substring(8, 10)
-                    val s3 = timetg.substring(5, 7)
-                    val s4 = timetg.substring(0, 4)
-                    intent.putExtra("time", "Cập nhật: $s1 $s2-$s3-$s4. Nguồn: Worldometers")
+                    intent.putExtra("new_cases", w.new_cases)
+                    intent.putExtra("new_deaths", w.new_deaths)
+                    intent.putExtra("textToTransfer", result.data.data[0].table_left)
+                    intent.putExtra("updated", result.data.updated_at)
 
                     val vn = result.gdata.total
                     val vnArr = vn.split("\r\n")
@@ -53,7 +53,6 @@ class LoadActivity : AppCompatActivity() {
                     intent.putExtra("vntotal_cases", arr[2])
                     intent.putExtra("vntotal_deaths", arr[3])
                     intent.putExtra("vntotal_recovered", arr[6])
-                    intent.putExtra("textToTransfer", result.data.data[0].table_left)
 
                     startActivity(intent)
                     finish()
@@ -62,3 +61,40 @@ class LoadActivity : AppCompatActivity() {
         })
     }
 }
+
+class SWorldData(
+    val total_cases: String,
+    val total_deaths: String,
+    val total_recovered: String,
+    val new_cases: String,
+    val new_deaths: String
+)
+
+class SVNData(
+    val total: String
+)
+
+class SData1(
+    val table_world: SWorldData,
+    val table_left: ArrayList<W>
+)
+
+class SData2(
+    val data: ArrayList<SData1>,
+    val updated_at: String
+)
+
+class SData3(
+    val data: SData2,
+    val gdata: SVNData
+)
+
+class W(
+    var cases: String,
+    var country_vn: String,
+    var country: String,
+    var recovered: String,
+    var deaths: String,
+    val new_today: String,
+    val today_deaths: String
+) : Serializable

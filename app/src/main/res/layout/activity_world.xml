@@ -1,111 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    tools:context=".WorldActivity"
+    tools:ignore="ContentDescription, SpUsage, HardcodedText">
 
-    <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    <ImageView
+        android:id="@+id/w_img"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/virus2" />
+
+    <TextView
+        android:id="@+id/w_title"
+        style="@style/title_text"
+        android:layout_alignTop="@id/w_img"
+        android:layout_alignBottom="@id/w_img"
+        android:text="Thế giới" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/w_choice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        tools:context=".WorldActivity"
-        tools:ignore="ContentDescription, SpUsage, HardcodedText">
+        android:layout_below="@id/w_img"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="12dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="2dp">
 
-        <ImageView
-            android:id="@+id/w_img"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/virus2" />
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/w_title"
-            style="@style/title_text"
-            android:layout_alignTop="@id/w_img"
-            android:layout_alignBottom="@id/w_img"
-            android:text="Thế giới" />
+            <SearchView
+                android:id="@+id/ws"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1"
+                android:iconifiedByDefault="false"
+                android:queryBackground="@android:color/transparent"
+                android:queryHint="Tìm kiếm" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/w_text1_father"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/w_img"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="8dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="1dp">
+            <Spinner
+                android:id="@+id/wspin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:animateLayoutChanges="true">
-
-                <TextView
-                    android:id="@+id/w_text1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="12dp"
-                    android:drawableEnd="@drawable/ic_arrow_drop_down"
-                    android:drawablePadding="5dp"
-                    android:fontFamily="@font/gg_medium"
-                    android:text="Phân bố theo châu lục"
-                    android:textColor="#0b2239"
-                    android:textSize="16dp" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/w_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/w_text1"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginEnd="18dp"
-                    android:layout_marginBottom="8dp"
-                    android:scrollbars="vertical" />
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/w_text2_father"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/w_text1_father"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="8dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="1dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:animateLayoutChanges="true">
-
-                <TextView
-                    android:id="@+id/w_text2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="12dp"
-                    android:drawableEnd="@drawable/ic_arrow_drop_down"
-                    android:drawablePadding="5dp"
-                    android:fontFamily="@font/gg_medium"
-                    android:text="Phân bố theo quốc gia"
-                    android:textColor="#0b2239"
-                    android:textSize="16dp" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/w_list2"
-                    android:layout_width="match_parent"
-                    android:layout_height="500dp"
-                    android:layout_below="@id/w_text2"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginEnd="18dp"
-                    android:layout_marginBottom="8dp"
-                    android:scrollbars="vertical" />
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-    </RelativeLayout>
-</ScrollView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/w_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/w_choice"
+        android:layout_margin="12dp"
+        android:scrollbars="vertical" />
+</RelativeLayout>

@@ -3,10 +3,14 @@ package com.thien.covid
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.animation.AnimationUtils
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -18,13 +22,16 @@ import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_viet_nam.*
 import kotlinx.android.synthetic.main.item.view.*
 import kotlinx.android.synthetic.main.item1.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class VietNamActivity : AppCompatActivity() {
 
     val adapter = GroupAdapter<ViewHolder>()
     val adapter2 = GroupAdapter<ViewHolder>()
-    var isList1ON = false
-    var isList2ON = false
+    val listAll = ArrayList<Patient>()
+    val listDCK = ArrayList<Patient>()
+    val listDDT = ArrayList<Patient>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,84 +44,44 @@ class VietNamActivity : AppCompatActivity() {
         vn_list.layoutManager = layoutManager
         val layoutManager2 = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         vn_list2.layoutManager = layoutManager2
+        vn_list.addItemDecoration(DividerItemDecoration(this, layoutManager.orientation))
+        vn_list2.addItemDecoration(DividerItemDecoration(this, layoutManager.orientation))
 
-        if (isList1ON) {
-            vn_list.visibility = VISIBLE
-            vn_text1.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                0,
-                0,
-                R.drawable.ic_arrow_drop_up,
-                0
-            )
-        } else {
-            vn_list.visibility = GONE
-            vn_text1.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                0,
-                0,
-                R.drawable.ic_arrow_drop_down,
-                0
-            )
-        }
+        vn_list.visibility = GONE
+        vn_list2.visibility = GONE
 
-        if (isList2ON) {
-            vn_list2.visibility = VISIBLE
-            vn_text2.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                0,
-                0,
-                R.drawable.ic_arrow_drop_up,
-                0
-            )
-        } else {
-            vn_list2.visibility = GONE
-            vn_text2.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                0,
-                0,
-                R.drawable.ic_arrow_drop_down,
-                0
-            )
-        }
-
-        vn_text1.setOnClickListener {
-            if (!isList1ON) {
-                vn_list.visibility = VISIBLE
-                isList1ON = true
-                vn_text1.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                    0,
-                    0,
-                    R.drawable.ic_arrow_drop_up,
-                    0
-                )
-            } else {
-                vn_list.visibility = GONE
-                isList1ON = false
-                vn_text1.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                    0,
-                    0,
-                    R.drawable.ic_arrow_drop_down,
-                    0
-                )
+        val dataset = LinkedList(listOf("Tất cả", "Đang điều trị", "Đã khỏi bệnh"))
+        val adapterSpinner = ArrayAdapter(this, R.layout.spinner_item, dataset)
+        adapterSpinner.setDropDownViewResource(R.layout.spinner_item_chosen)
+        spin.adapter = adapterSpinner
+        spin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {
             }
-        }
 
-        vn_text2.setOnClickListener {
-            if (!isList2ON) {
-                vn_list2.visibility = VISIBLE
-                isList2ON = true
-                vn_text2.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                    0,
-                    0,
-                    R.drawable.ic_arrow_drop_up,
-                    0
-                )
-            } else {
-                vn_list2.visibility = GONE
-                isList2ON = false
-                vn_text2.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                    0,
-                    0,
-                    R.drawable.ic_arrow_drop_down,
-                    0
-                )
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                when (p2) {
+                    0 -> {
+                        adapter2.clear()
+                        for (m in listAll) {
+                            adapter2.add(ItemPatient(m))
+                        }
+                        adapter2.notifyDataSetChanged()
+                    }
+                    1 -> {
+                        adapter2.clear()
+                        for (m in listDDT) {
+                            adapter2.add(ItemPatient(m))
+                        }
+                        adapter2.notifyDataSetChanged()
+                    }
+                    2 -> {
+                        adapter2.clear()
+                        for (m in listDCK) {
+                            adapter2.add(ItemPatient(m))
+                        }
+                        adapter2.notifyDataSetChanged()
+                    }
+                }
             }
         }
 
@@ -133,6 +100,8 @@ class VietNamActivity : AppCompatActivity() {
                     adapter.add(ItemProvince(pro))
                 }
                 vn_list.adapter = adapter
+                vn_list.visibility = VISIBLE
+                loadvn.visibility = GONE
             }
         })
 
@@ -150,10 +119,20 @@ class VietNamActivity : AppCompatActivity() {
                     val patSex = m.child("sex").value.toString()
                     val patStatus = m.child("status").value.toString()
                     val pat = Patient(patID, patAge, patSex, patPlace, patStatus, patNationality)
-                    adapter2.add(ItemPatient(pat))
+                    listAll.add(pat)
+                    if (pat.status.contains("Khỏi")) {
+                        listDCK.add(pat)
+                    } else {
+                        listDDT.add(pat)
+                    }
+                }
+                for (m in listAll) {
+                    adapter2.add(ItemPatient(m))
                 }
                 adapter2.notifyDataSetChanged()
                 vn_list2.adapter = adapter2
+                vn_list2.visibility = VISIBLE
+                loadvn2.visibility = GONE
             }
         })
     }
@@ -196,13 +175,15 @@ class ItemPatient(private val p: Patient) : Item<ViewHolder>() {
     @SuppressLint("SetTextI18n")
     override fun bind(viewHolder: ViewHolder, position: Int) {
         if (p.status.contains("Khỏi")) {
-            viewHolder.itemView.ipa_text.text = "${p.id}: Đã khỏi bệnh".replace("BN", "BN ")
-            viewHolder.itemView.ipa_text.setTextColor(Color.parseColor("#4CAF50"))
+            viewHolder.itemView.ipa_2.text = "Đã khỏi bệnh"
+            viewHolder.itemView.ipa_2.setTextColor(Color.parseColor("#4CAF50"))
         } else {
-            viewHolder.itemView.ipa_text.text = "${p.id}: Đang điều trị".replace("BN", "BN ")
-            viewHolder.itemView.ipa_text.setTextColor(Color.parseColor("#ffff4444"))
+            viewHolder.itemView.ipa_2.text = "Đang điều trị"
+            viewHolder.itemView.ipa_2.setTextColor(Color.parseColor("#ffff4444"))
         }
-        viewHolder.itemView.ipa_text2.text =
-            "${p.sex}, ${p.age} tuổi, quốc tịch ${p.nationality}, điều trị ở ${p.place}"
+        viewHolder.itemView.ipa_1.text = "${p.sex}, ${p.age} tuổi"
+        viewHolder.itemView.ipa_3.text = "QT: ${p.nationality}"
+        viewHolder.itemView.ipa_4.text = "ĐĐ: ${p.place}"
+        viewHolder.itemView.lay0.text = p.id.replace("BN", "")
     }
 }

@@ -1,62 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="5dp"
-    android:layout_marginTop="2dp"
-    android:layout_marginEnd="5dp"
-    android:layout_marginBottom="4dp"
-    android:orientation="horizontal"
+    android:layout_margin="8dp"
     tools:ignore="HardcodedText, SpUsage">
 
     <TextView
-        android:id="@+id/ip_name"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:id="@+id/w_name"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/w_data1"
+        android:layout_alignBottom="@id/w_data2"
         android:ellipsize="end"
         android:fontFamily="@font/gg_regular"
         android:gravity="center_vertical"
-        android:maxLines="1"
-        android:padding="5dp"
-        android:text="Hà Nội"
+        android:lineSpacingMultiplier="1.1"
+        android:maxLines="2"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:text="Saudi"
         android:textColor="@android:color/black"
-        android:textSize="13dp" />
+        android:textSize="14dp" />
 
-    <TextView
-        android:id="@+id/ip_case"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:fontFamily="@font/gg_regular"
-        android:gravity="center_vertical|end"
-        android:padding="5dp"
-        android:text="0"
-        android:textColor="@android:color/holo_red_light"
-        android:textSize="15dp" />
+    <LinearLayout
+        android:id="@+id/w_data1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/w_name"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/ip_recover"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:fontFamily="@font/gg_regular"
-        android:gravity="center_vertical|end"
-        android:padding="5dp"
-        android:text="0"
-        android:textColor="#4CAF50"
-        android:textSize="15dp" />
+        <TextView
+            android:id="@+id/ip_case"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/gg_regular"
+            android:gravity="center_vertical|end"
+            android:paddingBottom="5dp"
+            android:text="0"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="15dp" />
 
-    <TextView
-        android:id="@+id/ip_death"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:fontFamily="@font/gg_regular"
-        android:gravity="center_vertical|end"
-        android:padding="5dp"
-        android:text="0"
-        android:textColor="@android:color/black"
-        android:textSize="15dp" />
-</LinearLayout>
+        <TextView
+            android:id="@+id/ip_death"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/gg_regular"
+            android:gravity="center_vertical|end"
+            android:paddingBottom="5dp"
+            android:text="0"
+            android:textColor="@android:color/black"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/ip_recover"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/gg_regular"
+            android:gravity="center_vertical|end"
+            android:paddingBottom="5dp"
+            android:text="0"
+            android:textColor="#4CAF50"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/w_data2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/w_data1"
+        android:layout_toEndOf="@id/w_name"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/ip_case_new"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/gg_regular"
+            android:gravity="center_vertical|end"
+            android:paddingBottom="5dp"
+            android:text="0"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/ip_death_new"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/gg_regular"
+            android:gravity="center_vertical|end"
+            android:paddingBottom="5dp"
+            android:text="0"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/ip_recover_new"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/gg_regular"
+            android:gravity="center_vertical|end"
+            android:paddingBottom="5dp"
+            android:text=""
+            android:textSize="12dp" />
+    </LinearLayout>
+</RelativeLayout>
